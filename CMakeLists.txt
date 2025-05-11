@@ -11,6 +11,7 @@ project(EASTL CXX)
 option(EASTL_BUILD_BENCHMARK "Enable generation of build files for benchmark" OFF)
 option(EASTL_BUILD_TESTS "Enable generation of build files for tests" OFF)
 option(EASTL_STD_ITERATOR_CATEGORY_ENABLED "Enable compatibility with std:: iterator categories" OFF)
+option(EASTL_FORCE_NATVIS "Force the use of natvis files" OFF)
 
 
 option(EASTL_DISABLE_APRIL_2024_DEPRECATIONS "Enable use of API marked for removal in April 2024." OFF)
@@ -34,7 +35,7 @@ target_compile_features(EASTL PUBLIC cxx_std_14)
 # include both source and headers in the files tab in Visual Studio
 source_group(TREE ${CMAKE_CURRENT_SOURCE_DIR} PREFIX "Header Files" FILES ${EASTL_HEADERS})
 
-if (MSVC)
+if (MSVC OR EASTL_FORCE_NATVIS)
     set(EASTL_NATVIS_DIR "doc")
     set(EASTL_NATVIS_FILE "${EASTL_NATVIS_DIR}/EASTL.natvis")
     target_sources(EASTL INTERFACE
